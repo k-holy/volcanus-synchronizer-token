@@ -76,6 +76,17 @@ class Token
 	}
 
 	/**
+	 * 指定されたタイムスタンプでトークンの有効期限が切れているかどうかを返します。
+	 *
+	 * @param int 検証するタイムスタンプ
+	 * @return bool 有効期限が切れている場合はTRUE
+	 */
+	public function expired($time)
+	{
+		return ($this->expire !== null && $this->expire < $time);
+	}
+
+	/**
 	 * 指定されたトークン名 + トークン値 + タイムスタンプでトークンが有効かどうかを返します。
 	 *
 	 * @param string 検証するトークン名
@@ -85,30 +96,7 @@ class Token
 	 */
 	public function valid($name, $value, $time)
 	{
-		return ($this->equals($name, $value) && !$this->expired($time));
-	}
-
-	/**
-	 * 指定されたトークン名と値がこのトークンと一致しているかどうかを返します。
-	 *
-	 * @param string 検証するトークン名
-	 * @param string 検証するトークン値
-	 * @return bool 値が一致している場合はTRUE
-	 */
-	public function equals($name, $value)
-	{
-		return ($this->getName() === $name && $this->getValue() === $value);
-	}
-
-	/**
-	 * 指定されたタイムスタンプでトークンの有効期限が切れているかどうかを返します。
-	 *
-	 * @param int 検証するタイムスタンプ
-	 * @return bool 有効期限が切れている場合はTRUE
-	 */
-	public function expired($time)
-	{
-		return ($this->expire !== null && $this->expire < $time);
+		return ($this->getName() === $name && $this->getValue() === $value && !$this->expired($time));
 	}
 
 	/**
