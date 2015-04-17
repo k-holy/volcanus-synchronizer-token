@@ -65,12 +65,19 @@ class TokenProcessor
 			}
 		}
 		if ($this->config['generator'] === null) {
-			if (!function_exists('openssl_random_pseudo_bytes')) {
-				throw \RuntimeException('Default generator needs openssl_random_pseudo_bytes().');
-			}
-			$this->config['generator'] = function () {
-				return rtrim(strtr(base64_encode(openssl_random_pseudo_bytes(48)), '+/', '-_'), '='); // 64byte random string
-			};
+			$this->config['generator'] = (function_exists('openssl_random_pseudo_bytes'))
+				? function () {
+					return rtrim(strtr(base64_encode(openssl_random_pseudo_bytes(48)), '+/', '-_'), '='); // 64byte random string
+				}
+				: function () {
+					$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_.';
+					$max = strlen($chars) - 1;
+					$random = '';
+					for ($i = 0; $i < 64; $i++) {
+						$random .= $chars[mt_rand(0, $max)];
+					}
+					return $random; // 64byte random string
+				};
 		}
 		$this->tokens = $storage->getAttributes();
 		$this->storage = $storage;
