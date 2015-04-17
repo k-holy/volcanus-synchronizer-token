@@ -9,7 +9,7 @@
 namespace Volcanus\SynchronizerToken;
 
 use Volcanus\SynchronizerToken\Token;
-use Volcanus\SynchronizerToken\TokenStorage\StorageInterface;
+use Volcanus\SynchronizerToken\Storage\StorageInterface;
 
 /**
  * トークン処理クラス
@@ -30,14 +30,14 @@ class TokenProcessor
 	private $tokens;
 
 	/**
-	 * @var Volcanus\SynchronizerToken\TokenStorage\StorageInterface
+	 * @var Volcanus\SynchronizerToken\Storage\StorageInterface
 	 */
 	private $storage;
 
 	/**
 	 * コンストラクタ
 	 *
-	 * @param Volcanus\SynchronizerToken\TokenStorage\StorageInterface ストレージ
+	 * @param Volcanus\SynchronizerToken\Storage\StorageInterface ストレージ
 	 * @param array オプション設定
 	 */
 	public function __construct(StorageInterface $storage, array $configurations = array())
@@ -48,7 +48,7 @@ class TokenProcessor
 	/**
 	 * インスタンスを初期化して返します。
 	 *
-	 * @param Volcanus\SynchronizerToken\TokenStorage\StorageInterface ストレージ
+	 * @param Volcanus\SynchronizerToken\Storage\StorageInterface ストレージ
 	 * @param array オプション設定
 	 * @return $this
 	 */

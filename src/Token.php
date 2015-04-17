@@ -40,6 +40,9 @@ class Token
 	 */
 	public function __construct($name, $value, $expire = null)
 	{
+		if ($expire instanceof \DateTime || $expire instanceof \DateTimeInterface) {
+			$expire = $expire->getTimestamp();
+		}
 		$this->name = $name;
 		$this->value = $value;
 		$this->expire = $expire;
