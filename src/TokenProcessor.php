@@ -141,6 +141,16 @@ class TokenProcessor
 	}
 
 	/**
+	 * 全てのトークンを返します。
+	 *
+	 * @return array トークンの配列
+	 */
+	public function getTokens()
+	{
+		return $this->tokens;
+	}
+
+	/**
 	 * トークンを発行して値を返します。
 	 *
 	 * @param int 発行日時のタイムスタンプ
