@@ -36,7 +36,7 @@ class Token
 	 *
 	 * @param string トークンの名前
 	 * @param string トークンの値
-	 * @param int 有効期限のタイムスタンプ
+	 * @param mixed 有効期限のタイムスタンプ or DateTime
 	 */
 	public function __construct($name, $value, $expire = null)
 	{
@@ -81,12 +81,27 @@ class Token
 	/**
 	 * 指定されたタイムスタンプでトークンの有効期限が切れているかどうかを返します。
 	 *
-	 * @param int 検証するタイムスタンプ
+	 * @param int 検証するタイムスタンプ or DateTime
 	 * @return bool 有効期限が切れている場合はTRUE
 	 */
 	public function expired($time)
 	{
+		if ($time instanceof \DateTime || $time instanceof \DateTimeInterface) {
+			$time = $time->getTimestamp();
+		}
 		return ($this->expire !== null && $this->expire < $time);
+	}
+
+	/**
+	 * 指定されたトークン名と値がこのトークンと一致しているかどうかを返します。
+	 *
+	 * @param string 検証するトークン名
+	 * @param string 検証するトークン値
+	 * @return bool 値が一致している場合はTRUE
+	 */
+	public function equals($name, $value)
+	{
+		return ($this->getName() === $name && $this->getValue() === $value);
 	}
 
 	/**
@@ -94,12 +109,12 @@ class Token
 	 *
 	 * @param string 検証するトークン名
 	 * @param string 検証するトークン値
-	 * @param int 検証するタイムスタンプ
+	 * @param mixed 検証するタイムスタンプ or DateTime
 	 * @return bool 有効な場合はTRUE
 	 */
-	public function valid($name, $value, $time)
+	public function valid($name, $value, $time = null)
 	{
-		return ($this->getName() === $name && $this->getValue() === $value && !$this->expired($time));
+		return ($this->equals($name, $value) && !$this->expired($time));
 	}
 
 	/**
