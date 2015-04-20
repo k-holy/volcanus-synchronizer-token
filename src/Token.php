@@ -118,28 +118,6 @@ class Token
 	}
 
 	/**
-	 * __clone for clone
-	 */
-	public function __clone()
-	{
-		foreach (get_object_vars($this) as $name => $value) {
-			if (is_object($value)) {
-				$this->{$name} = clone $value;
-			}
-		}
-	}
-
-	/**
-	 * for serialize()
-	 *
-	 * @return array
-	 */
-	public function __sleep()
-	{
-		return array_keys(get_object_vars($this));
-	}
-
-	/**
 	 * for var_export()
 	 *
 	 * @param array
