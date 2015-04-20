@@ -41,25 +41,56 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 		$this->assertFalse($token->expired($expire - 1));
 	}
 
+	public function testExpiredByDateTime()
+	{
+		$expire = new \DateTime(sprintf('@%d', time()));
+		$expired = clone $expire;
+		$expired->add(new \DateInterval('PT1S'));
+		$token = new Token('tokenName', 'tokenValue', $expire);
+		$this->assertTrue($token->expired($expired));
+	}
+
+	public function testEquals()
+	{
+		$token = new Token('tokenName', 'tokenValue');
+		$this->assertTrue($token->equals('tokenName', 'tokenValue'));
+	}
+
+	public function testNotEqualsWhenNameDoesNotMatch()
+	{
+		$token = new Token('tokenName', 'tokenValue');
+		$this->assertFalse($token->equals('tokenNameIsNotEquals', 'tokenValue'));
+	}
+
+	public function testNotEqualsWhenValueDoesNotMatch()
+	{
+		$token = new Token('tokenName', 'tokenValue');
+		$this->assertFalse($token->equals('tokenName', 'tokenValueIsNotEquals'));
+	}
+
 	public function testValid()
 	{
-		$expire = time();
-		$token = new Token('tokenName', 'tokenValue', $expire);
-		$this->assertTrue($token->valid('tokenName', 'tokenValue', $expire - 1));
+		$token = new Token('tokenName', 'tokenValue');
+		$this->assertTrue($token->valid('tokenName', 'tokenValue'));
 	}
 
 	public function testNotValidWhenNameDoesNotMatch()
 	{
-		$expire = time();
-		$token = new Token('tokenName', 'tokenValue', $expire);
-		$this->assertFalse($token->valid('foo', 'tokenValue', $expire - 1));
+		$token = new Token('tokenName', 'tokenValue');
+		$this->assertFalse($token->valid('foo', 'tokenValue'));
 	}
 
 	public function testNotValidWhenValueDoesNotMatch()
 	{
+		$token = new Token('tokenName', 'tokenValue');
+		$this->assertFalse($token->valid('tokenName', 'foo'));
+	}
+
+	public function testValidWithExpire()
+	{
 		$expire = time();
 		$token = new Token('tokenName', 'tokenValue', $expire);
-		$this->assertFalse($token->valid('tokenName', 'foo', $expire - 1));
+		$this->assertTrue($token->valid('tokenName', 'tokenValue', $expire - 1));
 	}
 
 	public function testNotValidWhenExpired()
@@ -67,6 +98,24 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 		$expire = time();
 		$token = new Token('tokenName', 'tokenValue', $expire);
 		$this->assertFalse($token->valid('tokenName', 'tokenValue', $expire + 1));
+	}
+
+	public function testValidWithExpireByDateTime()
+	{
+		$expire = new \DateTime(sprintf('@%d', time()));
+		$token = new Token('tokenName', 'tokenValue', $expire);
+		$not_expired = clone $expire;
+		$not_expired->sub(new \DateInterval('PT1S'));
+		$this->assertTrue($token->valid('tokenName', 'tokenValue', $not_expired));
+	}
+
+	public function testNotValidWithExpireByDateTime()
+	{
+		$expire = new \DateTime(sprintf('@%d', time()));
+		$token = new Token('tokenName', 'tokenValue', $expire);
+		$expired = clone $expire;
+		$expired->add(new \DateInterval('PT1S'));
+		$this->assertFalse($token->valid('tokenName', 'tokenValue', $expired));
 	}
 
 	public function testClone()

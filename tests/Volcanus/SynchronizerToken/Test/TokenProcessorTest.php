@@ -135,6 +135,28 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->method('save')
 			->will($this->returnValue(true));
 
+		$processor = new TokenProcessor($storage, array(
+			'lifetime' => 1,
+		));
+
+		$generatedTime = time();
+		$token = $processor->generate($generatedTime);
+
+		$this->assertTrue($processor->check($token->getValue()));
+		sleep(2);
+		$this->assertFalse($processor->check($token->getValue()));
+	}
+
+	public function testCheckWithTime()
+	{
+		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+		$storage->expects($this->once())
+			->method('getAttributes')
+			->will($this->returnValue(array()));
+		$storage->expects($this->any())
+			->method('save')
+			->will($this->returnValue(true));
+
 		$generatedTime = time();
 		$processor = new TokenProcessor($storage, array(
 			'lifetime' => 1,
