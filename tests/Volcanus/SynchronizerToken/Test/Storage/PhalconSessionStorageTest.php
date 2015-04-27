@@ -18,13 +18,6 @@ use Volcanus\SynchronizerToken\Storage\PhalconSessionStorage;
 class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
 {
 
-	public function setUp()
-	{
-		if (!extension_loaded('phalcon')) {
-			$this->markTestSkipped('phalcon extension is not loaded.');
-		}
-	}
-
 	public function testImplementsStorageInterface()
 	{
 		$session = $this->getMock('\\Phalcon\\Session\\AdapterInterface');
