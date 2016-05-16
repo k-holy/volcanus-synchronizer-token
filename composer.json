@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.5.9"
     },
     "require-dev": {
         "symfony/http-foundation": ">=2.3,<2.6-dev"
