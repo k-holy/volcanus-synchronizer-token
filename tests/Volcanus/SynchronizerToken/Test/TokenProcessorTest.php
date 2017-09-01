@@ -8,19 +8,18 @@
 
 namespace Volcanus\SynchronizerToken\Test;
 
-use Volcanus\SynchronizerToken\TokenProcessor;
-
 /**
  * Test for TokenProcessor
  *
  * @author k.holy74@gmail.com
  */
-class TokenProcessorTest extends \PHPUnit_Framework_TestCase
+class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 {
 
 	public function testTokenNameOnGenerate()
 	{
-		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue(array()));
@@ -28,7 +27,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->method('save')
 			->will($this->returnValue(true));
 
-		$processor = new TokenProcessor($storage, array(
+		$processor = new \Volcanus\SynchronizerToken\TokenProcessor($storage, array(
 			'tokenName' => 'TEST_TOKEN',
 		));
 
@@ -38,7 +37,8 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
 	public function testTokenNameOnGenerateWithSuffix()
 	{
-		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue(array()));
@@ -46,7 +46,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->method('save')
 			->will($this->returnValue(true));
 
-		$processor = new TokenProcessor($storage, array(
+		$processor = new \Volcanus\SynchronizerToken\TokenProcessor($storage, array(
 			'tokenName' => 'TEST_TOKEN',
 		));
 
@@ -57,7 +57,8 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
 	public function testLifetimeOnGenerate()
 	{
-		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue(array()));
@@ -66,7 +67,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(true));
 
 		$generatedTime = time();
-		$processor = new TokenProcessor($storage, array(
+		$processor = new \Volcanus\SynchronizerToken\TokenProcessor($storage, array(
 			'lifetime' => 1,
 		));
 
@@ -78,7 +79,8 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
 	public function testCapacityOnGenerate()
 	{
-		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue(array()));
@@ -86,19 +88,23 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->method('save')
 			->will($this->returnValue(true));
 
-		$processor = new TokenProcessor($storage, array(
+		$processor = new \Volcanus\SynchronizerToken\TokenProcessor($storage, array(
 			'capacity' => 1,
 		));
 
 		$this->assertCount(0, $processor->getTokens());
+        /** @noinspection PhpUnusedLocalVariableInspection */
 		$token = $processor->generate();
 		$this->assertCount(1, $processor->getTokens());
+        /** @noinspection PhpUnusedLocalVariableInspection */
 		$token = $processor->generate();
 		$this->assertCount(1, $processor->getTokens());
 
 		$processor->config('capacity', 2);
+        /** @noinspection PhpUnusedLocalVariableInspection */
 		$token = $processor->generate();
 		$this->assertCount(2, $processor->getTokens());
+        /** @noinspection PhpUnusedLocalVariableInspection */
 		$token = $processor->generate();
 		$this->assertCount(2, $processor->getTokens());
 
@@ -106,7 +112,8 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
 	public function testGeneratorOnGenerate()
 	{
-		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue(array()));
@@ -114,7 +121,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->method('save')
 			->will($this->returnValue(true));
 
-		$processor = new TokenProcessor($storage, array(
+		$processor = new \Volcanus\SynchronizerToken\TokenProcessor($storage, array(
 			'generator' => function() {
 				return 'TEST';
 			},
@@ -127,7 +134,8 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
 	public function testCheck()
 	{
-		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue(array()));
@@ -135,7 +143,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->method('save')
 			->will($this->returnValue(true));
 
-		$processor = new TokenProcessor($storage, array(
+		$processor = new \Volcanus\SynchronizerToken\TokenProcessor($storage, array(
 			'lifetime' => 1,
 		));
 
@@ -149,7 +157,8 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
 	public function testCheckWithTime()
 	{
-		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue(array()));
@@ -158,7 +167,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(true));
 
 		$generatedTime = time();
-		$processor = new TokenProcessor($storage, array(
+		$processor = new \Volcanus\SynchronizerToken\TokenProcessor($storage, array(
 			'lifetime' => 1,
 		));
 
@@ -170,7 +179,8 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
 	public function testCheckWithSuffix()
 	{
-		$storage = $this->getMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue(array()));
@@ -179,7 +189,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(true));
 
 		$generatedTime = time();
-		$processor = new TokenProcessor($storage, array(
+		$processor = new \Volcanus\SynchronizerToken\TokenProcessor($storage, array(
 			'tokenName' => 'TEST_TOKEN',
 			'lifetime' => 1,
 		));
