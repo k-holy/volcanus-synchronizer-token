@@ -16,13 +16,14 @@ env:
     - DEPENDENCIES=""
     - DEPENDENCIES="--prefer-lowest --prefer-stable"
 
-before_script:
+before_install:
   - composer self-update
   - composer require satooshi/php-coveralls:0.* --dev
   - composer update $DEPENDENCIES
   - vendor/bin/install-phalcon.sh 3.0.x
 
 script:
+  - php -r "echo \Phalcon\Version::get();"
   - mkdir -p build/logs
   - phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
 
