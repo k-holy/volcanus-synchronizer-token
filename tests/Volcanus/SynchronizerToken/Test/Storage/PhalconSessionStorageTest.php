@@ -8,14 +8,12 @@
 
 namespace Volcanus\SynchronizerToken\Test\Storage;
 
-use Volcanus\SynchronizerToken\Storage\PhalconSessionStorage;
-
 /**
  * Test for PhalconSessionStorage
  *
  * @author k.holy74@gmail.com
  */
-class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
+class PhalconSessionStorageTest extends \PHPUnit\Framework\TestCase
 {
 
 	public function setUp()
@@ -27,15 +25,17 @@ class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
 
 	public function testImplementsStorageInterface()
 	{
-		$session = $this->getMock('\\Phalcon\\Session\\AdapterInterface');
+        /** @var $session \Phalcon\Session\AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$session = $this->createMock('\Phalcon\Session\AdapterInterface');
 
-		$storage = new PhalconSessionStorage('storageName', $session);
+		$storage = new \Volcanus\SynchronizerToken\Storage\PhalconSessionStorage('storageName', $session);
 		$this->assertInstanceOf('\Volcanus\SynchronizerToken\Storage\StorageInterface', $storage);
 	}
 
 	public function testGetAttributesReturnFromAdapter()
 	{
-		$session = $this->getMock('\\Phalcon\\Session\\AdapterInterface');
+        /** @var $session \Phalcon\Session\AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$session = $this->createMock('\Phalcon\Session\AdapterInterface');
 		$session->expects($this->once())
 			->method('has')
 			->with($this->equalTo('storageName'))
@@ -45,18 +45,19 @@ class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
 			->with($this->equalTo('storageName'))
 			->will($this->returnValue(array('foo' => 'bar')));
 
-		$storage = new PhalconSessionStorage('storageName', $session);
+		$storage = new \Volcanus\SynchronizerToken\Storage\PhalconSessionStorage('storageName', $session);
 		$this->assertEquals(array('foo' => 'bar'), $storage->getAttributes());
 	}
 
 	public function testGetAttributesReturnEmptyArrayWhenAdapterNotHasTheAttribute()
 	{
-		$session = $this->getMock('\\Phalcon\\Session\\AdapterInterface');
+        /** @var $session \Phalcon\Session\AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$session = $this->createMock('\Phalcon\Session\AdapterInterface');
 		$session->expects($this->once())
 			->method('has')
 			->will($this->returnValue(false));
 
-		$storage = new PhalconSessionStorage('storageName', $session);
+		$storage = new \Volcanus\SynchronizerToken\Storage\PhalconSessionStorage('storageName', $session);
 		$this->assertEquals(array(), $storage->getAttributes());
 	}
 
@@ -64,12 +65,13 @@ class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
 	{
 		$attributes = array('foo', 'bar', 'baz');
 
-		$session = $this->getMock('\\Phalcon\\Session\\AdapterInterface');
+        /** @var $session \Phalcon\Session\AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$session = $this->createMock('\Phalcon\Session\AdapterInterface');
 		$session->expects($this->once())
 			->method('set')
 			->with($this->equalTo('storageName'), $this->equalTo($attributes));
 
-		$storage = new PhalconSessionStorage('storageName', $session);
+		$storage = new \Volcanus\SynchronizerToken\Storage\PhalconSessionStorage('storageName', $session);
 		$storage->save($attributes);
 	}
 

@@ -15,7 +15,7 @@ use Volcanus\SynchronizerToken\Token;
  *
  * @author k.holy74@gmail.com
  */
-class TokenTest extends \PHPUnit_Framework_TestCase
+class TokenTest extends \PHPUnit\Framework\TestCase
 {
 
 	public function testGetter()
@@ -144,6 +144,7 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 	{
 		$token = new Token('tokenName', 'tokenValue', time());
 		eval('$test = ' . var_export($token, true) . ';');
+        /** @noinspection PhpUndefinedVariableInspection */
 		$this->assertEquals($token, $test);
 		$this->assertNotSame($token, $test);
 		$this->assertEquals($token->getName(), $test->getName());

@@ -8,14 +8,12 @@
 
 namespace Volcanus\SynchronizerToken\Storage;
 
-use Volcanus\SynchronizerToken\Storage\StorageInterface;
-
 /**
  * PHPネイティブセッションストレージ
  *
  * @author k-holy <k.holy74@gmail.com>
  */
-class NativeSessionStorage implements StorageInterface
+class NativeSessionStorage implements \Volcanus\SynchronizerToken\Storage\StorageInterface
 {
 
 	/**
@@ -31,8 +29,8 @@ class NativeSessionStorage implements StorageInterface
 	/**
 	 * コンストラクタ
 	 *
-	 * @param string ストレージ名
-	 * @param array 属性値
+	 * @param string $name ストレージ名
+	 * @param array $attributes 属性値
 	 */
 	public function __construct($name, array $attributes = array())
 	{
@@ -58,7 +56,7 @@ class NativeSessionStorage implements StorageInterface
 	/**
 	 * 属性値を保存します。
 	 *
-	 * @param array 属性値
+	 * @param array $attributes 属性値
 	 * @return $this
 	 */
 	public function save(array $attributes = array())
