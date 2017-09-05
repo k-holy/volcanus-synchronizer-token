@@ -14,7 +14,7 @@ cache:
 
 before_install:
   - composer self-update
-  - composer require satooshi/php-coveralls:0.* --dev
+  - composer require php-coveralls/php-coveralls
   - composer update
   - vendor/bin/install-phalcon.sh
 
