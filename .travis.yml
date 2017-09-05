@@ -21,7 +21,7 @@ before_install:
 script:
   - php -r "echo \Phalcon\Version::get();"
   - mkdir -p build/logs
-  - phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
 
 after_script:
   - php vendor/bin/coveralls -v -c .coveralls.yml
