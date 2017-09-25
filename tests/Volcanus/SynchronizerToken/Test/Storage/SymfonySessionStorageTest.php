@@ -10,8 +10,6 @@ namespace Volcanus\SynchronizerToken\Test\Storage;
 
 use Volcanus\SynchronizerToken\Storage\SymfonySessionStorage;
 
-use Symfony\Component\HttpFoundation\Session\Session;
-
 /**
  * Test for SymfonySessionStorage
  *
@@ -22,6 +20,7 @@ class SymfonySessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testImplementsStorageInterface()
     {
+        /** @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
         $session = $this->getMock('\Symfony\Component\HttpFoundation\Session\SessionInterface');
 
         $storage = new SymfonySessionStorage('storageName', $session);
@@ -30,6 +29,7 @@ class SymfonySessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAttributesReturnFromAdapter()
     {
+        /** @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
         $session = $this->getMock('\Symfony\Component\HttpFoundation\Session\SessionInterface');
         $session->expects($this->once())
             ->method('has')
@@ -46,6 +46,7 @@ class SymfonySessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAttributesReturnEmptyArrayWhenAdapterNotHasTheAttribute()
     {
+        /** @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
         $session = $this->getMock('\Symfony\Component\HttpFoundation\Session\SessionInterface');
         $session->expects($this->once())
             ->method('has')
@@ -59,6 +60,7 @@ class SymfonySessionStorageTest extends \PHPUnit_Framework_TestCase
     {
         $attributes = array('foo', 'bar', 'baz');
 
+        /** @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
         $session = $this->getMock('\Symfony\Component\HttpFoundation\Session\SessionInterface');
         $session->expects($this->once())
             ->method('set')

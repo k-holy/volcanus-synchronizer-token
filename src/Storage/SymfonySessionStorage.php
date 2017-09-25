@@ -8,14 +8,12 @@
 
 namespace Volcanus\SynchronizerToken\Storage;
 
-use Volcanus\SynchronizerToken\Storage\StorageInterface;
-
 /**
  * Symfonyセッションストレージ
  *
  * @author k-holy <k.holy74@gmail.com>
  */
-class SymfonySessionStorage implements StorageInterface
+class SymfonySessionStorage implements \Volcanus\SynchronizerToken\Storage\StorageInterface
 {
 
     /**
@@ -31,7 +29,7 @@ class SymfonySessionStorage implements StorageInterface
     /**
      * コンストラクタ
      *
-     * @param string ストレージ名
+     * @param string $name ストレージ名
      * @param \Symfony\Component\HttpFoundation\Session\SessionInterface セッションアダプタ
      */
     public function __construct($name, \Symfony\Component\HttpFoundation\Session\SessionInterface $session)
@@ -56,7 +54,7 @@ class SymfonySessionStorage implements StorageInterface
     /**
      * 属性値を保存します。
      *
-     * @param array 属性値
+     * @param array $attributes 属性値
      * @return $this
      */
     public function save(array $attributes = array())

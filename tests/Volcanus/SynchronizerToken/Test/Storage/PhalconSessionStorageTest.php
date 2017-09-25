@@ -27,6 +27,7 @@ class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testImplementsStorageInterface()
     {
+        /** @var $session \Phalcon\Session\AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
         $session = $this->getMock('\Phalcon\Session\AdapterInterface');
 
         $storage = new PhalconSessionStorage('storageName', $session);
@@ -35,6 +36,7 @@ class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAttributesReturnFromAdapter()
     {
+        /** @var $session \Phalcon\Session\AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
         $session = $this->getMock('\Phalcon\Session\AdapterInterface');
         $session->expects($this->once())
             ->method('has')
@@ -51,6 +53,7 @@ class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAttributesReturnEmptyArrayWhenAdapterNotHasTheAttribute()
     {
+        /** @var $session \Phalcon\Session\AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
         $session = $this->getMock('\Phalcon\Session\AdapterInterface');
         $session->expects($this->once())
             ->method('has')
@@ -64,6 +67,7 @@ class PhalconSessionStorageTest extends \PHPUnit_Framework_TestCase
     {
         $attributes = array('foo', 'bar', 'baz');
 
+        /** @var $session \Phalcon\Session\AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
         $session = $this->getMock('\Phalcon\Session\AdapterInterface');
         $session->expects($this->once())
             ->method('set')

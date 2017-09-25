@@ -144,6 +144,7 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     {
         $token = new Token('tokenName', 'tokenValue', time());
         eval('$test = ' . var_export($token, true) . ';');
+        /** @noinspection PhpUndefinedVariableInspection */
         $this->assertEquals($token, $test);
         $this->assertNotSame($token, $test);
         $this->assertEquals($token->getName(), $test->getName());

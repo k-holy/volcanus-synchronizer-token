@@ -20,6 +20,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testTokenNameOnGenerate()
     {
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
         $storage = $this->getMock('\Volcanus\SynchronizerToken\Storage\StorageInterface');
         $storage->expects($this->once())
             ->method('getAttributes')
@@ -38,6 +39,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testTokenNameOnGenerateWithSuffix()
     {
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
         $storage = $this->getMock('\Volcanus\SynchronizerToken\Storage\StorageInterface');
         $storage->expects($this->once())
             ->method('getAttributes')
@@ -57,6 +59,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testLifetimeOnGenerate()
     {
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
         $storage = $this->getMock('\Volcanus\SynchronizerToken\Storage\StorageInterface');
         $storage->expects($this->once())
             ->method('getAttributes')
@@ -78,6 +81,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testCapacityOnGenerate()
     {
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
         $storage = $this->getMock('\Volcanus\SynchronizerToken\Storage\StorageInterface');
         $storage->expects($this->once())
             ->method('getAttributes')
@@ -91,14 +95,18 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
         ));
 
         $this->assertCount(0, $processor->getTokens());
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $token = $processor->generate();
         $this->assertCount(1, $processor->getTokens());
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $token = $processor->generate();
         $this->assertCount(1, $processor->getTokens());
 
         $processor->config('capacity', 2);
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $token = $processor->generate();
         $this->assertCount(2, $processor->getTokens());
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $token = $processor->generate();
         $this->assertCount(2, $processor->getTokens());
 
@@ -106,6 +114,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testGeneratorOnGenerate()
     {
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
         $storage = $this->getMock('\Volcanus\SynchronizerToken\Storage\StorageInterface');
         $storage->expects($this->once())
             ->method('getAttributes')
@@ -127,6 +136,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testCheck()
     {
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
         $storage = $this->getMock('\Volcanus\SynchronizerToken\Storage\StorageInterface');
         $storage->expects($this->once())
             ->method('getAttributes')
@@ -149,6 +159,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testCheckWithTime()
     {
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
         $storage = $this->getMock('\Volcanus\SynchronizerToken\Storage\StorageInterface');
         $storage->expects($this->once())
             ->method('getAttributes')
@@ -170,6 +181,7 @@ class TokenProcessorTest extends \PHPUnit_Framework_TestCase
 
     public function testCheckWithSuffix()
     {
+        /** @var $storage \Volcanus\SynchronizerToken\Storage\StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
         $storage = $this->getMock('\Volcanus\SynchronizerToken\Storage\StorageInterface');
         $storage->expects($this->once())
             ->method('getAttributes')

@@ -34,9 +34,9 @@ class Token
     /**
      * コンストラクタ
      *
-     * @param string トークンの名前
-     * @param string トークンの値
-     * @param mixed 有効期限のタイムスタンプ or DateTime
+     * @param string $name トークンの名前
+     * @param string $value トークンの値
+     * @param int|\DateTime|\DateTimeInterface $expire 有効期限のタイムスタンプ or DateTime
      */
     public function __construct($name, $value, $expire = null)
     {
@@ -81,7 +81,7 @@ class Token
     /**
      * 指定されたタイムスタンプでトークンの有効期限が切れているかどうかを返します。
      *
-     * @param int 検証するタイムスタンプ or DateTime
+     * @param int|\DateTime|\DateTimeInterface $time 検証するタイムスタンプ or DateTime
      * @return bool 有効期限が切れている場合はTRUE
      */
     public function expired($time)
@@ -95,8 +95,8 @@ class Token
     /**
      * 指定されたトークン名と値がこのトークンと一致しているかどうかを返します。
      *
-     * @param string 検証するトークン名
-     * @param string 検証するトークン値
+     * @param string $name 検証するトークン名
+     * @param string $value 検証するトークン値
      * @return bool 値が一致している場合はTRUE
      */
     public function equals($name, $value)
@@ -107,9 +107,9 @@ class Token
     /**
      * 指定されたトークン名 + トークン値 + タイムスタンプでトークンが有効かどうかを返します。
      *
-     * @param string 検証するトークン名
-     * @param string 検証するトークン値
-     * @param mixed 検証するタイムスタンプ or DateTime
+     * @param string $name 検証するトークン名
+     * @param string $value 検証するトークン値
+     * @param int|\DateTime|\DateTimeInterface $time 検証するタイムスタンプ or DateTime
      * @return bool 有効な場合はTRUE
      */
     public function valid($name, $value, $time = null)
