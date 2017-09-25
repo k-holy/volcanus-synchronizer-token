@@ -8,9 +8,6 @@
 
 namespace Volcanus\SynchronizerToken;
 
-use Volcanus\SynchronizerToken\Token;
-use Volcanus\SynchronizerToken\Storage\StorageInterface;
-
 /**
  * トークン処理クラス
  *
@@ -30,17 +27,17 @@ class TokenProcessor
     private $tokens;
 
     /**
-     * @var Volcanus\SynchronizerToken\Storage\StorageInterface
+     * @var \Volcanus\SynchronizerToken\Storage\StorageInterface
      */
     private $storage;
 
     /**
      * コンストラクタ
      *
-     * @param Volcanus\SynchronizerToken\Storage\StorageInterface ストレージ
-     * @param array オプション設定
+     * @param \Volcanus\SynchronizerToken\Storage\StorageInterface $storage ストレージ
+     * @param array $configurations オプション設定
      */
-    public function __construct(StorageInterface $storage, array $configurations = array())
+    public function __construct(\Volcanus\SynchronizerToken\Storage\StorageInterface $storage, array $configurations = array())
     {
         $this->initialize($storage, $configurations);
     }
@@ -48,11 +45,11 @@ class TokenProcessor
     /**
      * インスタンスを初期化して返します。
      *
-     * @param Volcanus\SynchronizerToken\Storage\StorageInterface ストレージ
-     * @param array オプション設定
+     * @param \Volcanus\SynchronizerToken\Storage\StorageInterface $storage ストレージ
+     * @param array $configurations オプション設定
      * @return $this
      */
-    public function initialize(StorageInterface $storage, array $configurations = array())
+    public function initialize(\Volcanus\SynchronizerToken\Storage\StorageInterface $storage, array $configurations = array())
     {
         $this->config = array();
         $this->config['tokenName'] = 'csrf_token'; // トークン名
@@ -88,7 +85,7 @@ class TokenProcessor
      * 引数1の場合は指定された設定の値を返します。
      * 引数2の場合は指定された設置の値をセットして$thisを返します。
      *
-     * @param string 設定名
+     * @param string $name 設定名
      * @return mixed 設定値 または $this
      */
     public function config($name)
@@ -135,7 +132,7 @@ class TokenProcessor
     /**
      * トークン名を生成して返します。
      *
-     * @param string トークン名の接尾辞
+     * @param string $suffix トークン名の接尾辞
      * @return string トークン名
      */
     public function getTokenName($suffix = null)
@@ -160,9 +157,9 @@ class TokenProcessor
     /**
      * トークンを発行して値を返します。
      *
-     * @param int 発行日時のタイムスタンプ
-     * @param string トークン名の接尾辞
-     * @return TokenInterface トークン
+     * @param int $time 発行日時のタイムスタンプ
+     * @param string $suffix トークン名の接尾辞
+     * @return \Volcanus\SynchronizerToken\Token トークン
      */
     public function generate($time = null, $suffix = null)
     {
@@ -173,7 +170,7 @@ class TokenProcessor
         $lifetime = $this->config('lifetime');
         $capacity = $this->config('capacity');
         $generator = $this->config('generator');
-        $token = new Token(
+        $token = new \Volcanus\SynchronizerToken\Token(
             $tokenName,
             call_user_func($generator),
             ($lifetime !== null) ? $time + $lifetime : null
@@ -190,9 +187,10 @@ class TokenProcessor
     /**
      * トークンが有効かどうかを返します。
      *
-     * @param string トークン値
-     * @param int チェック時刻
-     * @param string トークン名の接尾辞
+     * @param string $tokenValue トークン値
+     * @param int $time チェック時刻
+     * @param string $suffix トークン名の接尾辞
+     * @return bool
      */
     public function check($tokenValue, $time = null, $suffix = null)
     {

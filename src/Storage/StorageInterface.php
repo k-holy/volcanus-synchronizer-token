@@ -26,7 +26,7 @@ interface StorageInterface
     /**
      * 属性値を保存します。
      *
-     * @param array 属性値
+     * @param array $attributes 属性値
      * @return $this
      */
     public function save(array $attributes = array());
