@@ -10,16 +10,17 @@
             "email": "k.holy74@gmail.com"
         }
     ],
-    "require": {
-        "php": ">=5.3"
-    },
-    "require-dev": {
-        "symfony/http-foundation": ">=2.3,<2.6-dev"
-    },
-    "suggest": {
-        "symfony/http-foundation": ">=2.3,<2.6-dev"
-    },
     "autoload": {
         "psr-4": { "Volcanus\\SynchronizerToken\\": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.9"
+    },
+    "require-dev": {
+        "symfony/http-foundation": "^2.8",
+        "phpunit/phpunit": "^4.8"
+    },
+    "suggest": {
+        "symfony/http-foundation": "^2.8"
     }
 }
