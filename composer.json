@@ -1,26 +1,28 @@
 {
-    "name": "volcanus/synchronizer-token",
-    "homepage": "https://github.com/k-holy/volcanus-synchronizer-token",
-    "type": "library",
-    "version": "0.2.4",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "k-holy",
-            "email": "k.holy74@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": { "Volcanus\\SynchronizerToken\\": "src/" }
-    },
-    "require": {
-        "php": ">=5.3.9"
-    },
-    "require-dev": {
-        "symfony/http-foundation": "^2.8",
-        "phpunit/phpunit": "^4.8"
-    },
-    "suggest": {
-        "symfony/http-foundation": "^2.8"
+  "name": "volcanus/synchronizer-token",
+  "homepage": "https://github.com/k-holy/volcanus-synchronizer-token",
+  "type": "library",
+  "version": "0.2.4",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "k-holy",
+      "email": "k.holy74@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Volcanus\\SynchronizerToken\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=5.3.9"
+  },
+  "require-dev": {
+    "symfony/http-foundation": "^2.8",
+    "phpunit/phpunit": "^4.8"
+  },
+  "suggest": {
+    "symfony/http-foundation": "^2.8"
+  }
 }
