@@ -8,16 +8,16 @@
 
 namespace Volcanus\SynchronizerToken\Test\Storage;
 
-use Phalcon\Session\AdapterInterface;
-use Volcanus\SynchronizerToken\Storage\PhalconSessionStorage;
+use Phalcon\Session\ManagerInterface;
+use Volcanus\SynchronizerToken\Storage\Phalcon4SessionStorage;
 use Volcanus\SynchronizerToken\Storage\StorageInterface;
 
 /**
- * Test for PhalconSessionStorage
+ * Test for Phalcon4SessionStorage
  *
  * @author k.holy74@gmail.com
  */
-class PhalconSessionStorageTest extends \PHPUnit\Framework\TestCase
+class Phalcon4SessionStorageTest extends \PHPUnit\Framework\TestCase
 {
 
     public function setUp()
@@ -28,24 +28,24 @@ class PhalconSessionStorageTest extends \PHPUnit\Framework\TestCase
         if (!class_exists(\Phalcon\Version::class)) {
             $this->markTestSkipped('needs \Phalcon\Version.');
         }
-        if (version_compare(\Phalcon\Version::get(), '4.0.0', '>=')) {
-            $this->markTestSkipped('A target of this test is Phalcon 3.');
+        if (version_compare(\Phalcon\Version::get(), '4.0.0', '<')) {
+            $this->markTestSkipped('A target of this test is Phalcon 4.');
         }
     }
 
     public function testImplementsStorageInterface()
     {
-        /** @var $session AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $session = $this->createMock(AdapterInterface::class);
+        /** @var $session ManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $session = $this->createMock(ManagerInterface::class);
 
-        $storage = new PhalconSessionStorage('storageName', $session);
+        $storage = new Phalcon4SessionStorage('storageName', $session);
         $this->assertInstanceOf(StorageInterface::class, $storage);
     }
 
     public function testGetAttributesReturnFromAdapter()
     {
-        /** @var $session AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $session = $this->createMock(AdapterInterface::class);
+        /** @var $session ManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $session = $this->createMock(ManagerInterface::class);
         $session->expects($this->once())
             ->method('has')
             ->with($this->equalTo('storageName'))
@@ -55,19 +55,19 @@ class PhalconSessionStorageTest extends \PHPUnit\Framework\TestCase
             ->with($this->equalTo('storageName'))
             ->will($this->returnValue(array('foo' => 'bar')));
 
-        $storage = new PhalconSessionStorage('storageName', $session);
+        $storage = new Phalcon4SessionStorage('storageName', $session);
         $this->assertEquals(array('foo' => 'bar'), $storage->getAttributes());
     }
 
     public function testGetAttributesReturnEmptyArrayWhenAdapterNotHasTheAttribute()
     {
-        /** @var $session AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $session = $this->createMock(AdapterInterface::class);
+        /** @var $session ManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $session = $this->createMock(ManagerInterface::class);
         $session->expects($this->once())
             ->method('has')
             ->will($this->returnValue(false));
 
-        $storage = new PhalconSessionStorage('storageName', $session);
+        $storage = new Phalcon4SessionStorage('storageName', $session);
         $this->assertEquals(array(), $storage->getAttributes());
     }
 
@@ -75,13 +75,13 @@ class PhalconSessionStorageTest extends \PHPUnit\Framework\TestCase
     {
         $attributes = array('foo', 'bar', 'baz');
 
-        /** @var $session AdapterInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $session = $this->createMock(AdapterInterface::class);
+        /** @var $session ManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $session = $this->createMock(ManagerInterface::class);
         $session->expects($this->once())
             ->method('set')
             ->with($this->equalTo('storageName'), $this->equalTo($attributes));
 
-        $storage = new PhalconSessionStorage('storageName', $session);
+        $storage = new Phalcon4SessionStorage('storageName', $session);
         $storage->save($attributes);
     }
 

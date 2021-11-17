@@ -8,6 +8,10 @@
 
 namespace Volcanus\SynchronizerToken\Test\Storage;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Volcanus\SynchronizerToken\Storage\SymfonySessionStorage;
+use Volcanus\SynchronizerToken\Storage\StorageInterface;
+
 /**
  * Test for SymfonySessionStorage
  *
@@ -18,17 +22,17 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 
 	public function testImplementsStorageInterface()
 	{
-        /** @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
-		$session = $this->createMock('\Symfony\Component\HttpFoundation\Session\SessionInterface');
+        /** @var $session SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$session = $this->createMock(SessionInterface::class);
 
-		$storage = new \Volcanus\SynchronizerToken\Storage\SymfonySessionStorage('storageName', $session);
-		$this->assertInstanceOf('\Volcanus\SynchronizerToken\Storage\StorageInterface', $storage);
+		$storage = new SymfonySessionStorage('storageName', $session);
+		$this->assertInstanceOf(StorageInterface::class, $storage);
 	}
 
 	public function testGetAttributesReturnFromAdapter()
 	{
-        /** @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
-		$session = $this->createMock('\Symfony\Component\HttpFoundation\Session\SessionInterface');
+        /** @var $session SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('has')
 			->with($this->equalTo('storageName'))
@@ -38,19 +42,19 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 			->with($this->equalTo('storageName'))
 			->will($this->returnValue(array('foo' => 'bar')));
 
-		$storage = new \Volcanus\SynchronizerToken\Storage\SymfonySessionStorage('storageName', $session);
+		$storage = new SymfonySessionStorage('storageName', $session);
 		$this->assertEquals(array('foo' => 'bar'), $storage->getAttributes());
 	}
 
 	public function testGetAttributesReturnEmptyArrayWhenAdapterNotHasTheAttribute()
 	{
-        /** @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
-		$session = $this->createMock('\Symfony\Component\HttpFoundation\Session\SessionInterface');
+        /** @var $session SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('has')
 			->will($this->returnValue(false));
 
-		$storage = new \Volcanus\SynchronizerToken\Storage\SymfonySessionStorage('storageName', $session);
+		$storage = new SymfonySessionStorage('storageName', $session);
 		$this->assertEquals(array(), $storage->getAttributes());
 	}
 
@@ -58,13 +62,13 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 	{
 		$attributes = array('foo', 'bar', 'baz');
 
-        /** @var $session \Symfony\Component\HttpFoundation\Session\SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
-		$session = $this->createMock('\Symfony\Component\HttpFoundation\Session\SessionInterface');
+        /** @var $session SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
+		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('set')
 			->with($this->equalTo('storageName'), $this->equalTo($attributes));
 
-		$storage = new \Volcanus\SynchronizerToken\Storage\SymfonySessionStorage('storageName', $session);
+		$storage = new SymfonySessionStorage('storageName', $session);
 		$storage->save($attributes);
 	}
 

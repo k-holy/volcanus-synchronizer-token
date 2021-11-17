@@ -9,11 +9,11 @@
 namespace Volcanus\SynchronizerToken\Storage;
 
 /**
- * Phalconセッションストレージ (for Phalcon 3)
+ * Phalcon4セッションストレージ
  *
  * @author k-holy <k.holy74@gmail.com>
  */
-class PhalconSessionStorage implements \Volcanus\SynchronizerToken\Storage\StorageInterface
+class Phalcon4SessionStorage implements \Volcanus\SynchronizerToken\Storage\StorageInterface
 {
 
 	/**
@@ -22,7 +22,7 @@ class PhalconSessionStorage implements \Volcanus\SynchronizerToken\Storage\Stora
 	private $name;
 
 	/**
-	 * @var \Phalcon\Session\AdapterInterface セッションアダプタ
+	 * @var \Phalcon\Session\ManagerInterface セッションマネージャ
 	 */
 	private $session;
 
@@ -30,9 +30,9 @@ class PhalconSessionStorage implements \Volcanus\SynchronizerToken\Storage\Stora
 	 * コンストラクタ
 	 *
 	 * @param string $name ストレージ名
-	 * @param \Phalcon\Session\AdapterInterface $session セッションアダプタ
+	 * @param \Phalcon\Session\ManagerInterface $session セッションマネージャ
 	 */
-	public function __construct($name, \Phalcon\Session\AdapterInterface $session)
+	public function __construct($name, \Phalcon\Session\ManagerInterface $session)
 	{
 		$this->name = $name;
 		$this->session = $session;
