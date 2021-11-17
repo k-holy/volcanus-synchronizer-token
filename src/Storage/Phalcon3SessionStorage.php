@@ -9,11 +9,11 @@
 namespace Volcanus\SynchronizerToken\Storage;
 
 /**
- * Phalconセッションストレージ
+ * Phalcon3セッションストレージ
  *
  * @author k-holy <k.holy74@gmail.com>
  */
-class PhalconSessionStorage implements \Volcanus\SynchronizerToken\Storage\StorageInterface
+class Phalcon3SessionStorage implements \Volcanus\SynchronizerToken\Storage\StorageInterface
 {
 
 	/**
