@@ -13,59 +13,59 @@ namespace Volcanus\SynchronizerToken\Storage;
  *
  * @author k-holy <k.holy74@gmail.com>
  */
-class NativeSessionStorage implements \Volcanus\SynchronizerToken\Storage\StorageInterface
+class NativeSessionStorage implements StorageInterface
 {
 
-	/**
-	 * @var string ストレージ名
-	 */
-	private $name;
+    /**
+     * @var string ストレージ名
+     */
+    private $name;
 
-	/**
-	 * @var array 属性値
-	 */
-	private $attributes;
+    /**
+     * @var array 属性値
+     */
+    private $attributes;
 
-	/**
-	 * コンストラクタ
-	 *
-	 * @param string $name ストレージ名
-	 * @param array $attributes 属性値
-	 */
-	public function __construct($name, array $attributes = array())
-	{
-		$this->name = $name;
-		$this->attributes = array();
-		if (!empty($attributes)) {
-			$this->attributes = $attributes;
-		} elseif (isset($_SESSION[$name])) {
-			$this->attributes = $_SESSION[$name];
-		}
-	}
+    /**
+     * コンストラクタ
+     *
+     * @param string $name ストレージ名
+     * @param array $attributes 属性値
+     */
+    public function __construct(string $name, array $attributes = [])
+    {
+        $this->name = $name;
+        $this->attributes = [];
+        if (!empty($attributes)) {
+            $this->attributes = $attributes;
+        } elseif (isset($_SESSION[$name])) {
+            $this->attributes = $_SESSION[$name];
+        }
+    }
 
-	/**
-	 * 属性値を返します。
-	 *
-	 * @return array 属性値
-	 */
-	public function getAttributes()
-	{
-		return $this->attributes;
-	}
+    /**
+     * 属性値を返します。
+     *
+     * @return array 属性値
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
 
-	/**
-	 * 属性値を保存します。
-	 *
-	 * @param array $attributes 属性値
-	 * @return $this
-	 */
-	public function save(array $attributes = array())
-	{
-		if (!empty($attributes)) {
-			$this->attributes = $attributes;
-		}
-		$_SESSION[$this->name] = $this->attributes;
-		return $this;
-	}
+    /**
+     * 属性値を保存します。
+     *
+     * @param array $attributes 属性値
+     * @return StorageInterface
+     */
+    public function save(array $attributes = []): StorageInterface
+    {
+        if (!empty($attributes)) {
+            $this->attributes = $attributes;
+        }
+        $_SESSION[$this->name] = $this->attributes;
+        return $this;
+    }
 
 }
