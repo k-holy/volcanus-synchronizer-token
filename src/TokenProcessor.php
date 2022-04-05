@@ -8,6 +8,8 @@
 
 namespace Volcanus\SynchronizerToken;
 
+use Volcanus\SynchronizerToken\Storage\StorageInterface;
+
 /**
  * トークン処理クラス
  *
@@ -27,17 +29,17 @@ class TokenProcessor
 	private $tokens;
 
 	/**
-	 * @var \Volcanus\SynchronizerToken\Storage\StorageInterface
+	 * @var StorageInterface
 	 */
 	private $storage;
 
 	/**
 	 * コンストラクタ
 	 *
-	 * @param \Volcanus\SynchronizerToken\Storage\StorageInterface $storage ストレージ
+	 * @param StorageInterface $storage ストレージ
 	 * @param array $configurations オプション設定
 	 */
-	public function __construct(\Volcanus\SynchronizerToken\Storage\StorageInterface $storage, array $configurations = array())
+	public function __construct(StorageInterface $storage, array $configurations = [])
 	{
 		$this->initialize($storage, $configurations);
 	}
@@ -45,13 +47,13 @@ class TokenProcessor
 	/**
 	 * インスタンスを初期化して返します。
 	 *
-	 * @param \Volcanus\SynchronizerToken\Storage\StorageInterface $storage ストレージ
+	 * @param StorageInterface $storage ストレージ
 	 * @param array $configurations オプション設定
-	 * @return $this
+	 * @return self
 	 */
-	public function initialize(\Volcanus\SynchronizerToken\Storage\StorageInterface $storage, array $configurations = array())
-	{
-		$this->config = array();
+	public function initialize(StorageInterface $storage, array $configurations = []): self
+    {
+		$this->config = [];
 		$this->config['tokenName'] = 'csrf_token'; // トークン名
 		$this->config['lifetime'] = 1800; // トークン生存期間 (秒)
 		$this->config['capacity'] = 10; // トークン保持容量
@@ -88,7 +90,7 @@ class TokenProcessor
 	 * @param string $name 設定名
 	 * @return mixed 設定値 または $this
 	 */
-	public function config($name)
+	public function config(string $name)
 	{
 		switch (func_num_args()) {
 		case 1:
@@ -132,11 +134,11 @@ class TokenProcessor
 	/**
 	 * トークン名を生成して返します。
 	 *
-	 * @param string $suffix トークン名の接尾辞
+	 * @param string|null $suffix トークン名の接尾辞
 	 * @return string トークン名
 	 */
-	public function getTokenName($suffix = null)
-	{
+	public function getTokenName(string $suffix = null): string
+    {
 		$tokenName = $this->config('tokenName');
 		if (isset($suffix)) {
 			$tokenName .= $suffix;
@@ -149,20 +151,20 @@ class TokenProcessor
 	 *
 	 * @return array トークンの配列
 	 */
-	public function getTokens()
-	{
+	public function getTokens(): array
+    {
 		return $this->tokens;
 	}
 
 	/**
 	 * トークンを発行して値を返します。
 	 *
-	 * @param int $time 発行日時のタイムスタンプ
-	 * @param string $suffix トークン名の接尾辞
-	 * @return \Volcanus\SynchronizerToken\Token トークン
+	 * @param int|null $time 発行日時のタイムスタンプ
+	 * @param string|null $suffix トークン名の接尾辞
+	 * @return Token トークン
 	 */
-	public function generate($time = null, $suffix = null)
-	{
+	public function generate(int $time = null, string $suffix = null): Token
+    {
 		if ($time === null) {
 			$time = time();
 		}
@@ -170,7 +172,7 @@ class TokenProcessor
 		$lifetime = $this->config('lifetime');
 		$capacity = $this->config('capacity');
 		$generator = $this->config('generator');
-		$token = new \Volcanus\SynchronizerToken\Token(
+		$token = new Token(
 			$tokenName,
 			call_user_func($generator),
 			($lifetime !== null) ? $time + $lifetime : null
@@ -188,12 +190,12 @@ class TokenProcessor
 	 * トークンが有効かどうかを返します。
 	 *
 	 * @param string $tokenValue トークン値
-	 * @param int $time チェック時刻
-	 * @param string $suffix トークン名の接尾辞
-     * @return boolean
+	 * @param int|null $time チェック時刻
+	 * @param string|null $suffix トークン名の接尾辞
+     * @return bool
 	 */
-	public function check($tokenValue, $time = null, $suffix = null)
-	{
+	public function check(string $tokenValue, int $time = null, string $suffix = null): bool
+    {
 		if ($time === null) {
 			$time = time();
 		}

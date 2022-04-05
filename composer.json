@@ -10,20 +10,21 @@
       "email": "k.holy74@gmail.com"
     }
   ],
-  "require": {
-    "php": "^5.6||^7.1"
-  },
-  "require-dev": {
-    "techpivot/phalcon-ci-installer": "~1.0",
-    "symfony/http-foundation": "^3.4||^4.4",
-    "phpunit/phpunit": "^5.7.20||^6.0"
-  },
-  "suggest": {
-    "symfony/http-foundation": "^3.4||^4.4"
-  },
   "autoload": {
     "psr-4": {
       "Volcanus\\SynchronizerToken\\": "src/"
     }
+  },
+  "require": {
+    "php": ">=7.3||>=8.0.2",
+    "ext-openssl": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "symfony/http-foundation": "^5.4",
+    "techpivot/phalcon-ci-installer": "~1.0"
+  },
+  "suggest": {
+    "symfony/http-foundation": "^5.4"
   }
 }
