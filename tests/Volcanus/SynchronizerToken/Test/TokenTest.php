@@ -41,7 +41,10 @@ class TokenTest extends \PHPUnit\Framework\TestCase
 		$this->assertFalse($token->expired($expire - 1));
 	}
 
-	public function testExpiredByDateTime()
+    /**
+     * @throws \Exception
+     */
+    public function testExpiredByDateTime()
 	{
 		$expire = new \DateTime(sprintf('@%d', time()));
 		$expired = clone $expire;
@@ -100,7 +103,10 @@ class TokenTest extends \PHPUnit\Framework\TestCase
 		$this->assertFalse($token->valid('tokenName', 'tokenValue', $expire + 1));
 	}
 
-	public function testValidWithExpireByDateTime()
+    /**
+     * @throws \Exception
+     */
+    public function testValidWithExpireByDateTime()
 	{
 		$expire = new \DateTime(sprintf('@%d', time()));
 		$token = new Token('tokenName', 'tokenValue', $expire);
@@ -109,7 +115,10 @@ class TokenTest extends \PHPUnit\Framework\TestCase
 		$this->assertTrue($token->valid('tokenName', 'tokenValue', $not_expired));
 	}
 
-	public function testNotValidWithExpireByDateTime()
+    /**
+     * @throws \Exception
+     */
+    public function testNotValidWithExpireByDateTime()
 	{
 		$expire = new \DateTime(sprintf('@%d', time()));
 		$token = new Token('tokenName', 'tokenValue', $expire);

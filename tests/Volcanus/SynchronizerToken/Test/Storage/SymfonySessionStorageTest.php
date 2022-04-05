@@ -22,7 +22,7 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 
 	public function testImplementsStorageInterface()
 	{
-        /** @var $session SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /** @var $session SessionInterface|\PHPUnit\Framework\MockObject\MockObject */
 		$session = $this->createMock(SessionInterface::class);
 
 		$storage = new SymfonySessionStorage('storageName', $session);
@@ -31,7 +31,7 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 
 	public function testGetAttributesReturnFromAdapter()
 	{
-        /** @var $session SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /** @var $session SessionInterface|\PHPUnit\Framework\MockObject\MockObject */
 		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('has')
@@ -48,21 +48,21 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 
 	public function testGetAttributesReturnEmptyArrayWhenAdapterNotHasTheAttribute()
 	{
-        /** @var $session SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /** @var $session SessionInterface|\PHPUnit\Framework\MockObject\MockObject */
 		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('has')
 			->will($this->returnValue(false));
 
 		$storage = new SymfonySessionStorage('storageName', $session);
-		$this->assertEquals(array(), $storage->getAttributes());
+		$this->assertEquals([], $storage->getAttributes());
 	}
 
 	public function testSaveAttributesSetToAdapter()
 	{
 		$attributes = array('foo', 'bar', 'baz');
 
-        /** @var $session SessionInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /** @var $session SessionInterface|\PHPUnit\Framework\MockObject\MockObject */
 		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('set')

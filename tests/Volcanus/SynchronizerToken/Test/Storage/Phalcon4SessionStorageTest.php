@@ -20,7 +20,7 @@ use Volcanus\SynchronizerToken\Storage\StorageInterface;
 class Phalcon4SessionStorageTest extends \PHPUnit\Framework\TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!extension_loaded('phalcon')) {
             $this->markTestSkipped('phalcon extension is not loaded.');
@@ -35,7 +35,7 @@ class Phalcon4SessionStorageTest extends \PHPUnit\Framework\TestCase
 
     public function testImplementsStorageInterface()
     {
-        /** @var $session ManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /** @var $session ManagerInterface|\PHPUnit\Framework\MockObject\MockObject */
         $session = $this->createMock(ManagerInterface::class);
 
         $storage = new Phalcon4SessionStorage('storageName', $session);
@@ -44,7 +44,7 @@ class Phalcon4SessionStorageTest extends \PHPUnit\Framework\TestCase
 
     public function testGetAttributesReturnFromAdapter()
     {
-        /** @var $session ManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /** @var $session ManagerInterface|\PHPUnit\Framework\MockObject\MockObject */
         $session = $this->createMock(ManagerInterface::class);
         $session->expects($this->once())
             ->method('has')
@@ -61,21 +61,21 @@ class Phalcon4SessionStorageTest extends \PHPUnit\Framework\TestCase
 
     public function testGetAttributesReturnEmptyArrayWhenAdapterNotHasTheAttribute()
     {
-        /** @var $session ManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /** @var $session ManagerInterface|\PHPUnit\Framework\MockObject\MockObject */
         $session = $this->createMock(ManagerInterface::class);
         $session->expects($this->once())
             ->method('has')
             ->will($this->returnValue(false));
 
         $storage = new Phalcon4SessionStorage('storageName', $session);
-        $this->assertEquals(array(), $storage->getAttributes());
+        $this->assertEquals([], $storage->getAttributes());
     }
 
     public function testSaveAttributesSetToAdapter()
     {
         $attributes = array('foo', 'bar', 'baz');
 
-        /** @var $session ManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /** @var $session ManagerInterface|\PHPUnit\Framework\MockObject\MockObject */
         $session = $this->createMock(ManagerInterface::class);
         $session->expects($this->once())
             ->method('set')
