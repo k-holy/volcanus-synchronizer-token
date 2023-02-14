@@ -1,6 +1,6 @@
 <?php
 /**
- * Volcanus libraries for PHP
+ * Volcanus libraries for PHP 8.1~
  *
  * @copyright k-holy <k.holy74@gmail.com>
  * @license The MIT License (MIT)
@@ -21,17 +21,17 @@ class TokenProcessor
 	/**
 	 * @var array 設定値
 	 */
-	private $config;
+	private array $config;
 
 	/**
 	 * @var array 発行したトークンのリスト
 	 */
-	private $tokens;
+	private array $tokens;
 
 	/**
 	 * @var StorageInterface
 	 */
-	private $storage;
+	private StorageInterface $storage;
 
 	/**
 	 * コンストラクタ
@@ -90,8 +90,8 @@ class TokenProcessor
 	 * @param string $name 設定名
 	 * @return mixed 設定値 または $this
 	 */
-	public function config(string $name)
-	{
+	public function config(string $name): mixed
+    {
 		switch (func_num_args()) {
 		case 1:
 			return $this->config[$name];

@@ -1,12 +1,11 @@
 <?php
 /**
- * Volcanus libraries for PHP
+ * Volcanus libraries for PHP 8.1~
  *
  * @copyright k-holy <k.holy74@gmail.com>
  * @license The MIT License (MIT)
  */
 error_reporting(E_ALL | E_STRICT | E_DEPRECATED);
 
-/** @noinspection PhpIncludeInspection */
 $loader = include realpath(__DIR__ . '/../vendor/autoload.php');
 $loader->add('Volcanus\SynchronizerToken\Test', __DIR__);
