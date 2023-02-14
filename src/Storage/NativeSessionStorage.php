@@ -1,6 +1,6 @@
 <?php
 /**
- * Volcanus libraries for PHP
+ * Volcanus libraries for PHP 8.1~
  *
  * @copyright k-holy <k.holy74@gmail.com>
  * @license The MIT License (MIT)
@@ -19,12 +19,12 @@ class NativeSessionStorage implements StorageInterface
     /**
      * @var string ストレージ名
      */
-    private $name;
+    private string $name;
 
     /**
      * @var array 属性値
      */
-    private $attributes;
+    private array $attributes;
 
     /**
      * コンストラクタ

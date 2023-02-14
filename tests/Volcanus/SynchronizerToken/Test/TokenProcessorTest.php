@@ -1,6 +1,6 @@
 <?php
 /**
- * Volcanus libraries for PHP
+ * Volcanus libraries for PHP 8.1~
  *
  * @copyright k-holy <k.holy74@gmail.com>
  * @license The MIT License (MIT)
@@ -8,6 +8,7 @@
 
 namespace Volcanus\SynchronizerToken\Test;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use Volcanus\SynchronizerToken\Storage\StorageInterface;
 use Volcanus\SynchronizerToken\TokenProcessor;
 
@@ -21,7 +22,7 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 
 	public function testTokenNameOnGenerate()
 	{
-        /** @var $storage StorageInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $storage StorageInterface|MockObject */
 		$storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
@@ -40,8 +41,8 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 
 	public function testTokenNameOnGenerateWithSuffix()
 	{
-        /** @var $storage StorageInterface|\PHPUnit\Framework\MockObject\MockObject */
-		$storage = $this->createMock('\\Volcanus\\SynchronizerToken\\Storage\\StorageInterface');
+        /** @var $storage StorageInterface|MockObject */
+		$storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
 			->will($this->returnValue([]));
@@ -60,7 +61,7 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 
 	public function testLifetimeOnGenerate()
 	{
-        /** @var $storage StorageInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $storage StorageInterface|MockObject */
 		$storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
@@ -82,7 +83,7 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 
 	public function testCapacityOnGenerate()
 	{
-        /** @var $storage StorageInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $storage StorageInterface|MockObject */
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
@@ -115,7 +116,7 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 
 	public function testGeneratorOnGenerate()
 	{
-        /** @var $storage StorageInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $storage StorageInterface|MockObject */
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
@@ -137,7 +138,7 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 
 	public function testCheck()
 	{
-        /** @var $storage StorageInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $storage StorageInterface|MockObject */
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
@@ -160,7 +161,7 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 
 	public function testCheckWithTime()
 	{
-        /** @var $storage StorageInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $storage StorageInterface|MockObject */
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
@@ -182,7 +183,7 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 
 	public function testCheckWithSuffix()
 	{
-        /** @var $storage StorageInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $storage StorageInterface|MockObject */
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')

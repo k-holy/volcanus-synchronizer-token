@@ -1,6 +1,6 @@
 <?php
 /**
- * Volcanus libraries for PHP
+ * Volcanus libraries for PHP 8.1~
  *
  * @copyright k-holy <k.holy74@gmail.com>
  * @license The MIT License (MIT)
@@ -19,26 +19,26 @@ class Token
     /**
      * @var string トークンの名前
      */
-    private $name;
+    private string $name;
 
     /**
      * @var string トークンの値
      */
-    private $value;
+    private string $value;
 
     /**
      * @var int|null 有効期限のタイムスタンプ
      */
-    private $expire;
+    private ?int $expire;
 
     /**
      * コンストラクタ
      *
      * @param string $name トークンの名前
      * @param string $value トークンの値
-     * @param int|\DateTime|\DateTimeInterface|null $expire 有効期限のタイムスタンプ or DateTime
+     * @param \DateTimeInterface|int|null $expire 有効期限のタイムスタンプ or DateTime
      */
-    public function __construct(string $name, string $value, $expire = null)
+    public function __construct(string $name, string $value, \DateTimeInterface|int $expire = null)
     {
         if ($expire instanceof \DateTimeInterface) {
             $expire = $expire->getTimestamp();
@@ -73,7 +73,7 @@ class Token
      *
      * @return int|null 有効期限のタイムスタンプ
      */
-    public function getExpire()
+    public function getExpire(): ?int
     {
         return $this->expire;
     }
@@ -81,10 +81,10 @@ class Token
     /**
      * 指定されたタイムスタンプでトークンの有効期限が切れているかどうかを返します。
      *
-     * @param int|\DateTime|\DateTimeInterface $time 検証するタイムスタンプ or DateTime
+     * @param \DateTimeInterface|int $time 検証するタイムスタンプ or DateTime
      * @return bool 有効期限が切れている場合はTRUE
      */
-    public function expired($time): bool
+    public function expired(\DateTimeInterface|int $time): bool
     {
         if ($time instanceof \DateTimeInterface) {
             $time = $time->getTimestamp();
@@ -109,12 +109,12 @@ class Token
      *
      * @param string $name 検証するトークン名
      * @param string $value 検証するトークン値
-     * @param int|\DateTime|\DateTimeInterface|null $time 検証するタイムスタンプ or DateTime
+     * @param \DateTimeInterface|int|null $time 検証するタイムスタンプ or DateTime
      * @return bool 有効な場合はTRUE
      */
-    public function valid(string $name, string $value, $time = null): bool
+    public function valid(string $name, string $value, \DateTimeInterface|int $time = null): bool
     {
-        return ($this->equals($name, $value) && !$this->expired($time));
+        return ($this->equals($name, $value) && ($time === null || !$this->expired($time)));
     }
 
     /**

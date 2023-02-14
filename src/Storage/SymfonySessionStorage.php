@@ -1,6 +1,6 @@
 <?php
 /**
- * Volcanus libraries for PHP
+ * Volcanus libraries for PHP 8.1~
  *
  * @copyright k-holy <k.holy74@gmail.com>
  * @license The MIT License (MIT)
@@ -21,12 +21,12 @@ class SymfonySessionStorage implements StorageInterface
     /**
      * @var string ストレージ名
      */
-    private $name;
+    private string $name;
 
     /**
      * @var SessionInterface セッションアダプタ
      */
-    private $session;
+    private SessionInterface $session;
 
     /**
      * コンストラクタ
