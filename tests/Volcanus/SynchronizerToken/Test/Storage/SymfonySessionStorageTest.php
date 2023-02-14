@@ -1,6 +1,6 @@
 <?php
 /**
- * Volcanus libraries for PHP
+ * Volcanus libraries for PHP 8.1~
  *
  * @copyright k-holy <k.holy74@gmail.com>
  * @license The MIT License (MIT)
@@ -8,6 +8,7 @@
 
 namespace Volcanus\SynchronizerToken\Test\Storage;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Volcanus\SynchronizerToken\Storage\SymfonySessionStorage;
 use Volcanus\SynchronizerToken\Storage\StorageInterface;
@@ -22,7 +23,7 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 
 	public function testImplementsStorageInterface()
 	{
-        /** @var $session SessionInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $session SessionInterface|MockObject */
 		$session = $this->createMock(SessionInterface::class);
 
 		$storage = new SymfonySessionStorage('storageName', $session);
@@ -31,7 +32,7 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 
 	public function testGetAttributesReturnFromAdapter()
 	{
-        /** @var $session SessionInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $session SessionInterface|MockObject */
 		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('has')
@@ -48,7 +49,7 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 
 	public function testGetAttributesReturnEmptyArrayWhenAdapterNotHasTheAttribute()
 	{
-        /** @var $session SessionInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $session SessionInterface|MockObject */
 		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('has')
@@ -62,7 +63,7 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 	{
 		$attributes = array('foo', 'bar', 'baz');
 
-        /** @var $session SessionInterface|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var $session SessionInterface|MockObject */
 		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('set')
