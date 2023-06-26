@@ -120,6 +120,16 @@ class TokenProcessor
 							sprintf('The config parameter "%s" only accepts callable.', $name));
 					}
 					break;
+                case 'tokenClass':
+                    if (!is_string($value)) {
+                        throw new \InvalidArgumentException(
+                            sprintf('The config parameter "%s" only accepts string.', $name));
+                    }
+                    if (!class_exists($value)) {
+                        throw new \InvalidArgumentException(
+                            sprintf('The tokenClass "%s" does not exists.', $name));
+                    }
+                    break;
 				default:
 					throw new \InvalidArgumentException(
 						sprintf('The config parameter "%s" is not defined.', $name)
