@@ -11,6 +11,8 @@ namespace Volcanus\SynchronizerToken\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Volcanus\SynchronizerToken\Storage\StorageInterface;
 use Volcanus\SynchronizerToken\TokenProcessor;
+use Volcanus\SynchronizerToken\TokenInterface;
+use Volcanus\SynchronizerToken\Test\Token as TestToken;
 
 /**
  * Test for TokenProcessor
@@ -113,6 +115,26 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 		$this->assertCount(2, $processor->getTokens());
 
 	}
+
+    public function testTokenClassOnGenerate()
+    {
+        /** @var $storage StorageInterface|MockObject */
+        $storage = $this->createMock(StorageInterface::class);
+        $storage->expects($this->once())
+            ->method('getAttributes')
+            ->will($this->returnValue([]));
+        $storage->expects($this->once())
+            ->method('save')
+            ->will($this->returnValue($storage));
+
+        $processor = new TokenProcessor($storage, array(
+            'tokenClass' => TestToken::class,
+        ));
+
+        $token = $processor->generate();
+        $this->assertInstanceof(TestToken::class, $token);
+        $this->assertInstanceof(TokenInterface::class, $token);
+    }
 
 	public function testGeneratorOnGenerate()
 	{
