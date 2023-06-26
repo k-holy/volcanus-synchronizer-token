@@ -58,6 +58,7 @@ class TokenProcessor
 		$this->config['lifetime'] = 1800; // トークン生存期間 (秒)
 		$this->config['capacity'] = 10; // トークン保持容量
 		$this->config['generator'] = null; // トークン値生成関数
+        $this->config['tokenClass'] = Token::class; // トークンクラス名
 		if (!empty($configurations)) {
 			foreach ($configurations as $name => $value) {
 				$this->config($name, $value);
@@ -172,7 +173,8 @@ class TokenProcessor
 		$lifetime = $this->config('lifetime');
 		$capacity = $this->config('capacity');
 		$generator = $this->config('generator');
-		$token = new Token(
+        $tokenClass = $this->config('tokenClass');
+		$token = new $tokenClass(
 			$tokenName,
 			call_user_func($generator),
 			($lifetime !== null) ? $time + $lifetime : null
@@ -201,6 +203,7 @@ class TokenProcessor
 		}
 		$tokenName = $this->getTokenName($suffix);
 		foreach ($this->tokens as $token) {
+            /** @var TokenInterface $token */
 			if ($token->valid($tokenName, $tokenValue, $time)) {
 				$this->storage->save($this->tokens);
 				return true;
