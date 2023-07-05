@@ -201,13 +201,16 @@ class TokenProcessor
 	/**
 	 * トークンが有効かどうかを返します。
 	 *
-	 * @param string $tokenValue トークン値
+	 * @param string|null $tokenValue トークン値
 	 * @param int|null $time チェック時刻
 	 * @param string|null $suffix トークン名の接尾辞
      * @return bool
 	 */
-	public function check(string $tokenValue, int $time = null, string $suffix = null): bool
+	public function check(?string $tokenValue, int $time = null, string $suffix = null): bool
     {
+        if ($tokenValue === null) {
+            return false;
+        }
 		if ($time === null) {
 			$time = time();
 		}
