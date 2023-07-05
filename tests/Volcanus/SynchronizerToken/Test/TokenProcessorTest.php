@@ -226,4 +226,13 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 		$this->assertTrue($processor->check($token->getValue(), $generatedTime, '_SUFFIX'));
 	}
 
+    public function testCheckAcceptNull()
+    {
+        /** @var $storage StorageInterface|MockObject */
+        $storage = $this->createMock(StorageInterface::class);
+        $processor = new TokenProcessor($storage);
+
+        $this->assertFalse($processor->check(null));
+    }
+
 }
