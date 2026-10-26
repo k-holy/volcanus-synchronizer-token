@@ -28,10 +28,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 		$storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
-			->will($this->returnValue([]));
+			->willReturn([]);
 		$storage->expects($this->once())
 			->method('save')
-			->will($this->returnValue($storage));
+			->willReturn($storage);
 
 		$processor = new TokenProcessor($storage, array(
 			'tokenName' => 'TEST_TOKEN',
@@ -47,10 +47,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 		$storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
-			->will($this->returnValue([]));
+			->willReturn([]);
 		$storage->expects($this->once())
 			->method('save')
-			->will($this->returnValue($storage));
+			->willReturn($storage);
 
 		$processor = new TokenProcessor($storage, array(
 			'tokenName' => 'TEST_TOKEN',
@@ -67,10 +67,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
 		$storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
-			->will($this->returnValue([]));
+			->willReturn([]);
 		$storage->expects($this->any())
 			->method('save')
-			->will($this->returnValue($storage));
+			->willReturn($storage);
 
 		$generatedTime = time();
 		$processor = new TokenProcessor($storage, array(
@@ -89,10 +89,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
-			->will($this->returnValue([]));
+			->willReturn([]);
 		$storage->expects($this->any())
 			->method('save')
-			->will($this->returnValue($storage));
+			->willReturn($storage);
 
 		$processor = new TokenProcessor($storage, array(
 			'capacity' => 1,
@@ -122,10 +122,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
         $storage = $this->createMock(StorageInterface::class);
         $storage->expects($this->once())
             ->method('getAttributes')
-            ->will($this->returnValue([]));
+            ->willReturn([]);
         $storage->expects($this->once())
             ->method('save')
-            ->will($this->returnValue($storage));
+            ->willReturn($storage);
 
         $processor = new TokenProcessor($storage, array(
             'tokenClass' => TestToken::class,
@@ -142,10 +142,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
-			->will($this->returnValue([]));
+			->willReturn([]);
 		$storage->expects($this->any())
 			->method('save')
-			->will($this->returnValue($storage));
+			->willReturn($storage);
 
 		$processor = new TokenProcessor($storage, array(
 			'generator' => function() {
@@ -164,10 +164,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
-			->will($this->returnValue([]));
+			->willReturn([]);
 		$storage->expects($this->any())
 			->method('save')
-			->will($this->returnValue($storage));
+			->willReturn($storage);
 
 		$processor = new TokenProcessor($storage, array(
 			'lifetime' => 1,
@@ -187,10 +187,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
-			->will($this->returnValue([]));
+			->willReturn([]);
 		$storage->expects($this->any())
 			->method('save')
-			->will($this->returnValue($storage));
+			->willReturn($storage);
 
 		$generatedTime = time();
 		$processor = new TokenProcessor($storage, array(
@@ -209,10 +209,10 @@ class TokenProcessorTest extends \PHPUnit\Framework\TestCase
         $storage = $this->createMock(StorageInterface::class);
 		$storage->expects($this->once())
 			->method('getAttributes')
-			->will($this->returnValue([]));
+			->willReturn([]);
 		$storage->expects($this->any())
 			->method('save')
-			->will($this->returnValue($storage));
+			->willReturn($storage);
 
 		$generatedTime = time();
 		$processor = new TokenProcessor($storage, array(
