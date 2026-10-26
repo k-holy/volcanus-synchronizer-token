@@ -37,11 +37,11 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 		$session->expects($this->once())
 			->method('has')
 			->with($this->equalTo('storageName'))
-			->will($this->returnValue(true));
+			->willReturn(true);
 		$session->expects($this->once())
 			->method('get')
 			->with($this->equalTo('storageName'))
-			->will($this->returnValue(array('foo' => 'bar')));
+			->willReturn(array('foo' => 'bar'));
 
 		$storage = new SymfonySessionStorage('storageName', $session);
 		$this->assertEquals(array('foo' => 'bar'), $storage->getAttributes());
@@ -53,7 +53,7 @@ class SymfonySessionStorageTest extends \PHPUnit\Framework\TestCase
 		$session = $this->createMock(SessionInterface::class);
 		$session->expects($this->once())
 			->method('has')
-			->will($this->returnValue(false));
+			->willReturn(false);
 
 		$storage = new SymfonySessionStorage('storageName', $session);
 		$this->assertEquals([], $storage->getAttributes());

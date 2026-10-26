@@ -23,7 +23,7 @@ interface TokenInterface
      * @param string $value トークンの値
      * @param \DateTimeInterface|int|null $expire 有効期限のタイムスタンプ or DateTime
      */
-    public function __construct(string $name, string $value, \DateTimeInterface|int $expire = null);
+    public function __construct(string $name, string $value, \DateTimeInterface|int|null $expire = null);
 
     /**
      * トークンの名前を返します。
@@ -71,6 +71,6 @@ interface TokenInterface
      * @param \DateTimeInterface|int|null $time 検証するタイムスタンプ or DateTime
      * @return bool 有効な場合はTRUE
      */
-    public function valid(string $name, string $value, \DateTimeInterface|int $time = null): bool;
+    public function valid(string $name, string $value, \DateTimeInterface|int|null $time = null): bool;
 
 }

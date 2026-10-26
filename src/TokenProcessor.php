@@ -148,7 +148,7 @@ class TokenProcessor
 	 * @param string|null $suffix トークン名の接尾辞
 	 * @return string トークン名
 	 */
-	public function getTokenName(string $suffix = null): string
+	public function getTokenName(?string $suffix = null): string
     {
 		$tokenName = $this->config('tokenName');
 		if (isset($suffix)) {
@@ -174,7 +174,7 @@ class TokenProcessor
 	 * @param string|null $suffix トークン名の接尾辞
 	 * @return Token トークン
 	 */
-	public function generate(int $time = null, string $suffix = null): Token
+	public function generate(?int $time = null, ?string $suffix = null): Token
     {
 		if ($time === null) {
 			$time = time();
@@ -206,7 +206,7 @@ class TokenProcessor
 	 * @param string|null $suffix トークン名の接尾辞
      * @return bool
 	 */
-	public function check(?string $tokenValue, int $time = null, string $suffix = null): bool
+	public function check(?string $tokenValue, ?int $time = null, ?string $suffix = null): bool
     {
         if ($tokenValue === null) {
             return false;
